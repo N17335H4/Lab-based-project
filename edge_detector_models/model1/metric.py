@@ -111,7 +111,7 @@ def extract_data():
 
 def calc_density():
     img2 = cv2.imread(sys.argv[2]).tolist()#yyp sys.argv[1]
-    img1 = cv2.cvtColor(cv2.imread("./data/"+sys.argv[1]),cv2.COLOR_BGR2GRAY).tolist()
+    img1 = cv2.cvtColor(cv2.imread(sys.argv[1]),cv2.COLOR_BGR2GRAY).tolist()
     return count_white(img1,img2)/1300
 
 start = time.time()

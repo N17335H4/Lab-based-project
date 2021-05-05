@@ -129,9 +129,7 @@ for i in range(len(lanes)):
 
     if not os.path.exists(mask_image):
         image = initialize_camera(caps[i])
-        roi.name = name
-        roi.image = image
-        mask = roi.specify_roi()
+        mask = roi.specify_roi(image, "mask images/"+"mask_"+name)
         masks.append(mask)
         cv.imshow(mask_image,mask)
         cv.waitKey()
@@ -155,7 +153,7 @@ while (all(x > t for x in durations)):
         caps[i].set(cv.CAP_PROP_POS_FRAMES,frame_no)
         ret, frame = caps[i].read()
         frame = cv.bitwise_or(frame, masks[i])
-        inputs.append([frame, t])
+        inputs.append([frame])
 
     outputs = pool.starmap(gtc.get_traffic_count, inputs)
     counts, images = zip(*outputs)

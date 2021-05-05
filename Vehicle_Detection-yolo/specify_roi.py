@@ -31,13 +31,15 @@ def draw_1(event, x, y, flag, param):
         if run == True:
             cv.circle(image, (x,y), 15 , (255,255,255), -1)
 
-name = ""
-image = np.zeros([512,512,1],dtype=np.uint8)
-image.fill(255)
-def specify_roi():
+def specify_roi(frame,name=None):
     
-    out = "mask images/"+"mask_"+name+".png"
-    print(out)
+    global image
+    image = frame
+    if(name==None):
+        out = "mask_image.png"
+    else:
+        out = name
+    
     cv.namedWindow('Specify your Region of Interest')
     cv.setMouseCallback('Specify your Region of Interest',draw)
 
@@ -63,3 +65,4 @@ def specify_roi():
     cv.imwrite(out, image)
 
     return image
+    

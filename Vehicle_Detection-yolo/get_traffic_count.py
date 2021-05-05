@@ -18,8 +18,8 @@ def drawPred(image, classId, conf, left, top, right, bottom):
 
             # Draw a bounding box.
             cv.rectangle(image, (left, top), (right, bottom), (0, 0, 255))
-            label = '%.2f' % conf
-            label = '%s:%s' % (classes[classId], label)
+            # label = '%.2f' % conf
+            label = '%s' % (classes[classId])
 
             # Display the label at the top of the bounding box
             labelSize, baseLine = cv.getTextSize(label, cv.FONT_HERSHEY_SIMPLEX, 0.5, 1)
@@ -89,7 +89,7 @@ nmsThreshold = 0.4  # Non-maximum suppression threshold
 inpWidth = 416  # Width of network's input image
 inpHeight = 416  # Height of network's input image
 
-def get_traffic_count(image, time):
+def get_traffic_count(image):
 
     # Create a 4D blob from a frame
     blob = cv.dnn.blobFromImage(image, 1 / 255, (inpWidth, inpHeight), [0, 0, 0], 1, crop=False)
@@ -98,7 +98,7 @@ def get_traffic_count(image, time):
     net.setInput(blob)
     outs = net.forward(getOutputsNames(net))
     count = postprocess(image, outs)
-
+    
     # print("The number of vehicles on road are: " + str(cnt))
     # cv.imshow("output",image)
     # cv.waitKey()
